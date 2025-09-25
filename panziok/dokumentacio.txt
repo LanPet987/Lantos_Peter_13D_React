@@ -1,2 +1,37 @@
 Munka gyorsítása érdekében Copilot lett használva:
-21. sor, A felajánlott kódrészlet helyes volt
+
+Ahol a MI által adott sort helyesnek ítéltem, ott elfogadtam és ha kellett rövidítettem a kódot:
+
+21.sor->29.sor (kivéve 22.sor, 25.sor kitöröltem a felesleges kódot)
+33.sor->41.sor (kivéve 34.sor)
+45.sor->53.sor (kivéve 46.sor)
+
+
+segítségkérés mysql kód szintaktikához:
+34. sor
+
+Kérdés:
+SELECT szobak.sznev AS "Szoba", foglalasok.fo AS "Vendegek", (foglalasok.tav-foglalasok-erk) AS "Éjszakák" FROM szobak
+INNER JOIN foglalasok ON szobak.szazon = foglalasok.szoba
+ORDER BY szobak.szazon DESC; what is the problem
+
+MI válasz:
+SELECT 
+    szobak.sznev AS "Szoba", 
+    foglalasok.fo AS "Vendegek", 
+    (foglalasok.tav - foglalasok.erk) AS "Éjszakák"
+FROM 
+    szobak
+INNER JOIN 
+    foglalasok 
+ON 
+    szobak.szazon = foglalasok.szoba
+ORDER BY 
+    foglalasok.szoba DESC;
+
+    Fixed the Calculation: Corrected the syntax for (foglalasok.tav - foglalasok.erk).
+Kept ORDER BY: Retained ORDER BY szobak.szazon DESC for sorting by room ID in descending order.
+
+Megváltoztattam: 
+SELECT foglalasok.szoba AS "Szoba", foglalasok.fo AS "Vendegek", DATEDIFF(foglalasok.tav,foglalasok.erk) AS "Éjszakák" 
+FROM foglalasok ORDER BY foglalasok.szoba ASC
